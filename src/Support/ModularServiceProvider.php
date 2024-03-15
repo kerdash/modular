@@ -76,6 +76,7 @@ class ModularServiceProvider extends ServiceProvider
 		$this->publishVendorFiles();
 		$this->bootPackageCommands();
 
+		$this->bootConfigs();
 		$this->bootRoutes();
 		$this->bootBreadcrumbs();
 		$this->bootViews();
@@ -163,12 +164,21 @@ class ModularServiceProvider extends ServiceProvider
 		});
 	}
 
+
+	protected function bootConfigs(): void
+	{
+        $this->autoDiscoveryHelper()
+        ->configDirectoryFinder()
+        ->each(function(SplFileInfo $file) {
+            $this->mergeConfigFrom($file->getRealPath(), $file->getFilenameWithoutExtension());
+        });
+	}
+
 	protected function bootTranslations(): void
 	{
 		$this->callAfterResolving('translator', function(TranslatorContract $translator) {
-			if (! $translator instanceof Translator) {
+			if (! $translator instanceof Translator)
 				return;
-			}
 
 			$this->autoDiscoveryHelper()
 				->langDirectoryFinder()
