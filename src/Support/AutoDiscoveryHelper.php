@@ -78,12 +78,6 @@ class AutoDiscoveryHelper
 
 	public function langDirectoryFinder(): FinderCollection
 	{
-        dd(
-            FinderCollection::forDirectories()
-			->depth(0)
-			->name('lang')
-			->inOrEmpty($this->base_path.'/*/src/resources/')
-        );
 		return FinderCollection::forDirectories()
 			->depth(0)
 			->name('lang')

@@ -3,27 +3,28 @@
 namespace HassanKerdash\Modular\Support;
 
 use Closure;
-use Illuminate\Console\Application as Artisan;
-use Illuminate\Console\Command;
-use Illuminate\Contracts\Auth\Access\Gate;
-use Illuminate\Contracts\Translation\Translator as TranslatorContract;
-use Illuminate\Database\Console\Migrations\MigrateMakeCommand;
-use Illuminate\Database\Eloquent\Factories\Factory as EloquentFactory;
-use Illuminate\Database\Migrations\Migrator;
-use Illuminate\Support\ServiceProvider;
+use ReflectionClass;
+use Livewire\Livewire;
 use Illuminate\Support\Str;
+use Illuminate\Console\Command;
 use Illuminate\Translation\Translator;
-use Illuminate\View\Compilers\BladeCompiler;
+use Illuminate\Support\ServiceProvider;
+use Symfony\Component\Finder\SplFileInfo;
+use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\View\Factory as ViewFactory;
-use HassanKerdash\Modular\Console\Commands\Make\MakeMigration;
-use HassanKerdash\Modular\Console\Commands\Make\MakeModule;
-use HassanKerdash\Modular\Console\Commands\ModulesCache;
-use HassanKerdash\Modular\Console\Commands\ModulesClear;
+use Illuminate\Database\Migrations\Migrator;
+use Illuminate\View\Compilers\BladeCompiler;
+use Illuminate\Console\Application as Artisan;
 use HassanKerdash\Modular\Console\Commands\ModulesList;
 use HassanKerdash\Modular\Console\Commands\ModulesSync;
-use Livewire\Livewire;
-use ReflectionClass;
-use Symfony\Component\Finder\SplFileInfo;
+use HassanKerdash\Modular\Console\Commands\ModulesCache;
+use HassanKerdash\Modular\Console\Commands\ModulesClear;
+use HassanKerdash\Modular\Console\Commands\ModulesInstall;
+use HassanKerdash\Modular\Console\Commands\Make\MakeModule;
+use HassanKerdash\Modular\Console\Commands\Make\MakeMigration;
+use Illuminate\Database\Console\Migrations\MigrateMakeCommand;
+use Illuminate\Contracts\Translation\Translator as TranslatorContract;
+use Illuminate\Database\Eloquent\Factories\Factory as EloquentFactory;
 
 class ModularServiceProvider extends ServiceProvider
 {
@@ -109,7 +110,8 @@ class ModularServiceProvider extends ServiceProvider
 		}
 
 		$this->commands([
-			MakeModule::class,
+            MakeModule::class,
+			ModulesInstall::class,
 			ModulesCache::class,
 			ModulesClear::class,
 			ModulesSync::class,
