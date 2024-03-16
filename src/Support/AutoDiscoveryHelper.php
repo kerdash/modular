@@ -111,4 +111,11 @@ class AutoDiscoveryHelper
 			->name('*.php')
 			->inOrEmpty($this->base_path.'/*/src/config/');
 	}
+
+    public function configDirectoryPackagesFinder(): FinderCollection
+	{
+		return FinderCollection::forFiles()
+			->name('*.php')
+			->inOrEmpty($this->base_path.'/*/src/packages/config/');
+	}
 }

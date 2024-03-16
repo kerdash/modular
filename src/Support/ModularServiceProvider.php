@@ -174,6 +174,12 @@ class ModularServiceProvider extends ServiceProvider
         ->each(function(SplFileInfo $file) {
             $this->mergeConfigFrom($file->getRealPath(), $file->getFilenameWithoutExtension());
         });
+
+        $this->autoDiscoveryHelper()
+        ->configDirectoryPackagesFinder()
+        ->each(function(SplFileInfo $file) {
+            $this->mergeConfigFrom($file->getRealPath(), $file->getFilenameWithoutExtension());
+        });
 	}
 
 	protected function bootTranslations(): void
